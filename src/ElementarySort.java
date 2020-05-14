@@ -69,5 +69,28 @@ class InsertionSort extends Sort {
  * 因此总的来看，希尔排序能提高插入排序的效率
  */
 class ShellSort extends Sort {
+    public static Comparable[] sort (Comparable[] a) {
+        int h = 1;
+        int n = a.length;
+        while (h * 3 < n) {
+            h *= 3;
+        }
 
+        while (h >= 1) {
+            for (int i = h; i < n; i += h) {
+                for (int j = i; j >= 0 && less(a[j], a[j - h]); j -= h) {
+                    exchange(a, j, j - h);
+                }
+            }
+            h /= 3;
+        }
+
+        return a;
+    }
+
+    public static void main (String[] args) {
+        Comparable[] a = generateTrial(50);
+        Comparable[] sorted = SelectionSort.sort(a);
+        System.out.println(Arrays.toString(sorted));
+    }
 }
